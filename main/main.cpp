@@ -28,7 +28,6 @@
 #include <stdlib.h>
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
-#include "Arduino.h"
 
 // ---------------------------------------------------------------- 
 // ---Defines---
@@ -37,8 +36,8 @@ static const int RX_BUFFER_SIZE = 128;
 
 // ---------------------------------------------------------------- 
 // ---Pins---
-#define   TXD_PIN   17
-#define   RXD_PIN   16
+#define TXD_PIN (GPIO_NUM_17)
+#define RXD_PIN (GPIO_NUM_16)
 
 // ----------------------------------------------------------------
 // ----init----
@@ -65,7 +64,7 @@ static void tx_task(void *arg){
   while(1){
     int len = sprintf((char *)data, "Hello World %d\n", num++);
     uart_write_bytes(UART_NUM, data, len);
-    vTaskDelay(1000 / portTICK_PERIOD_MS);
+      vTaskDelay(1000 / portTICK_PERIOD_MS);
   }
   free(data);
 }
