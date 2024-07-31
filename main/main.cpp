@@ -28,6 +28,7 @@
 #include <stdlib.h>
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
+#include "Arduino.h"
 
 // ---------------------------------------------------------------- 
 // ---Defines---
@@ -64,7 +65,7 @@ static void tx_task(void *arg){
   while(1){
     int len = sprintf((char *)data, "Hello World %d\n", num++);
     uart_write_bytes(UART_NUM, data, len);
-      vTaskDelay(1000 / portTICK_PERIOD_MS);
+    vTaskDelay(1000 / portTICK_PERIOD_MS);
   }
   free(data);
 }
@@ -88,6 +89,7 @@ static void rx_task(void *arg){
 // ----------------------------------------------------------------
 // ----main----
 extern "C" void app_main(){
+  initArduino();
   init();
   xTaskCreate(rx_task, "uart_rx_task", 2048, NULL, configMAX_PRIORITIES - 1, NULL);
   xTaskCreate(tx_task, "uart_tx_task", 2048, NULL, configMAX_PRIORITIES - 2, NULL);
