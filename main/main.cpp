@@ -37,8 +37,8 @@ static const int RX_BUFFER_SIZE = 128;
 
 // ---------------------------------------------------------------- 
 // ---Pins---
-#define TXD_PIN (GPIO_NUM_17)
-#define RXD_PIN (GPIO_NUM_16)
+#define   TXD_PIN   17
+#define   RXD_PIN   16
 
 // ----------------------------------------------------------------
 // ----init----
@@ -89,7 +89,6 @@ static void rx_task(void *arg){
 // ----------------------------------------------------------------
 // ----main----
 extern "C" void app_main(){
-  initArduino();
   init();
   xTaskCreate(rx_task, "uart_rx_task", 2048, NULL, configMAX_PRIORITIES - 1, NULL);
   xTaskCreate(tx_task, "uart_tx_task", 2048, NULL, configMAX_PRIORITIES - 2, NULL);
